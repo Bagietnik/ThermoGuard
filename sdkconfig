@@ -307,6 +307,14 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
+# Example Configuration
+#
+CONFIG_WIFI_SSID="Orange_Swiatlowod_3200"
+CONFIG_WIFI_PASSWORD="QgLgqMHs7SCLe4j9QU"
+CONFIG_MAXIMUM_RETRY=5
+# end of Example Configuration
+
+#
 # Compiler options
 #
 CONFIG_COMPILER_OPTIMIZATION_DEFAULT=y

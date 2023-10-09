@@ -4022,6 +4022,44 @@
     {
         "children": [
             {
+                "children": [],
+                "depends_on": null,
+                "help": "SSID (network name) for the example to connect to.",
+                "id": "WIFI_SSID",
+                "name": "WIFI_SSID",
+                "range": null,
+                "title": "WiFi SSID",
+                "type": "string"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "WiFi password (WPA or WPA2) for the example to use.",
+                "id": "WIFI_PASSWORD",
+                "name": "WIFI_PASSWORD",
+                "range": null,
+                "title": "WiFi Password",
+                "type": "string"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.",
+                "id": "MAXIMUM_RETRY",
+                "name": "MAXIMUM_RETRY",
+                "range": null,
+                "title": "Maximum retry",
+                "type": "int"
+            }
+        ],
+        "depends_on": null,
+        "id": "example-configuration",
+        "title": "Example Configuration",
+        "type": "menu"
+    },
+    {
+        "children": [
+            {
                 "children": [
                     {
                         "children": [],
