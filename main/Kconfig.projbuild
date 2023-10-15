@@ -1,20 +1,44 @@
-menu "Example Configuration"
+menu "X003 Configuration"
 
-    config WIFI_SSID
-        string "WiFi SSID"
-        default "myssid"
-        help
-            SSID (network name) for the example to connect to.
+config WIFI_SSID
+    string "WiFi SSID"
+    default "myssid"
+    help
+        SSID (network name) for the example to connect to.
+    
+config WIFI_PASSWORD
+    string "WiFi Password"
+    default "mypassword"
+    help
+        WiFi password (WPA or WPA2) for the example to use.
 
-    config WIFI_PASSWORD
-        string "WiFi Password"
-        default "mypassword"
-        help
-            WiFi password (WPA or WPA2) for the example to use.
+config SENSOR_ADDRESS
+    hex "Sensor Address"
+    default 0x18
+    help
+        Slave address
 
-    config MAXIMUM_RETRY
-        int "Maximum retry"
-        default 5
-        help
-            Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+config TEMP_MEAS_PERIOD
+    int "Temp measurment period (s)"
+    default 5
+    help
+        Temperature measurement period
+
+choice
+    default TEMP_RESOLUTION_0_5
+    prompt "Temp measurement resolution"
+    
+config TEMP_RESOLUTION_0_5
+    bool "0.5 °C"
+
+config TEMP_RESOLUTION_0_25
+    bool "0.25 °C"
+
+config TEMP_RESOLUTION_0_125
+    bool "0.125 °C"
+
+config TEMP_RESOLUTION_0_0_625
+    bool "0.0625 °C"
+endchoice
+
 endmenu

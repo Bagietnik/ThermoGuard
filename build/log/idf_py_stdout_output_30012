@@ -1,0 +1,42 @@
+[1/9] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\piotr\OneDrive\Pulpit\X003\http_server\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/7] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/Src/main.c.obj
+In file included from C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/main.h:5,
+                 from C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Src/main.c:1:
+C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/mcp9808.h:8:1: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+    8 | const void mcp9808_init();
+      | ^~~~~
+C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/mcp9808.h:12:1: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+   12 | const void mcp9808_setResolution(uint8_t resolution);
+      | ^~~~~
+In file included from C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/main.h:3,
+                 from C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Src/main.c:1:
+C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/wifi.h:22:13: warning: 'event_handler' declared 'static' but never defined [-Wunused-function]
+   22 | static void event_handler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data);
+      |             ^~~~~~~~~~~~~
+In file included from C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/main.h:5,
+                 from C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Src/main.c:1:
+C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/mcp9808.h:10:18: warning: 'i2c_master_init' declared 'static' but never defined [-Wunused-function]
+   10 | static esp_err_t i2c_master_init(void);
+      |                  ^~~~~~~~~~~~~~~
+C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/mcp9808.h:14:17: warning: 'mcp9808_get_resolution' declared 'static' but never defined [-Wunused-function]
+   14 | static unsigned mcp9808_get_resolution(void);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~
+C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/mcp9808.h:16:18: warning: 'mcp9808_register_write_byte' declared 'static' but never defined [-Wunused-function]
+   16 | static esp_err_t mcp9808_register_write_byte(uint8_t reg_addr, uint8_t data);
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Inc/mcp9808.h:18:18: warning: 'mcp9808_register_read' declared 'static' but never defined [-Wunused-function]
+   18 | static esp_err_t mcp9808_register_read(uint8_t reg_addr, uint8_t *data, size_t len);
+      |                  ^~~~~~~~~~~~~~~~~~~~~
+[3/7] Linking C static library esp-idf\main\libmain.a
+[4/7] Generating ld/sections.ld
+[5/7] Linking CXX executable http_server.elf
+[6/7] Generating binary image from built executable
+esptool.py v4.5.1
+Creating esp32 image...
+Merged 25 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/http_server.bin
+[7/7] cmd.exe /C "cd /D C:\Users\piotr\OneDrive\Pulpit\X003\http_server\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/partition_table/partition-table.bin C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/http_server.bin"
+http_server.bin binary size 0xc0520 bytes. Smallest app partition is 0x100000 bytes. 0x3fae0 bytes (25%) free.
