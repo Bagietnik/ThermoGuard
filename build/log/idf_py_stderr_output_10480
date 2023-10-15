@@ -1,0 +1,50 @@
+warning: TEMP_RESOLUTION (defined at C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Kconfig.projbuild:28) defined with multiple prompts in single location
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.0.1-2\tools\kconfig_new\confgen.py", line 607, in <module>
+    main()
+  File "C:\Espressif\frameworks\esp-idf-v5.0.1-2\tools\kconfig_new\confgen.py", line 258, in main
+    config = kconfiglib.Kconfig(args.kconfig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 947, in __init__
+    self._init(filename, warn, warn_to_stderr, encoding)
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 1085, in _init
+    self._parse_block(None, self.top_node, self.top_node).next = None
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 2989, in _parse_block
+    prev = self._parse_block(None, parent, prev)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 2989, in _parse_block
+    prev = self._parse_block(None, parent, prev)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 3028, in _parse_block
+    self._parse_block(_T_ENDMENU, node, node)
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 3028, in _parse_block
+    self._parse_block(_T_ENDMENU, node, node)
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 3080, in _parse_block
+    self._parse_block(_T_ENDCHOICE, node, node)
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 2941, in _parse_block
+    self._parse_props(node)
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 3141, in _parse_props
+    while self._next_line():
+          ^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 2236, in _next_line
+    self._tokens = self._tokenize(line)
+                   ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 2371, in _tokenize
+    self._parse_assignment(s)
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 2627, in _parse_assignment
+    self._parse_error("syntax error")
+  File "C:\Espressif\python_env\idf5.0_py3.11_env\Lib\site-packages\kconfiglib.py", line 3879, in _parse_error
+    raise KconfigError("{}error: couldn't parse '{}': {}".format(
+kconfiglib.KconfigError: C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Kconfig.projbuild:44: error: couldn't parse 'endconfig': syntax error
+CMake Error at C:/Espressif/frameworks/esp-idf-v5.0.1-2/tools/cmake/kconfig.cmake:176 (message):
+  Failed to run confgen.py
+  (C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;C:/Espressif/frameworks/esp-idf-v5.0.1-2/tools/kconfig_new/confgen.py;--list-separator=semicolon;--kconfig;C:/Espressif/frameworks/esp-idf-v5.0.1-2/Kconfig;--sdkconfig-rename;C:/Espressif/frameworks/esp-idf-v5.0.1-2/sdkconfig.rename;--config;C:/Users/piotr/OneDrive/Pulpit/X003/http_server/sdkconfig;--env-file;C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/config.env).
+  Error 1
+Call Stack (most recent call first):
+  C:/Espressif/frameworks/esp-idf-v5.0.1-2/tools/cmake/build.cmake:590 (__kconfig_generate_config)
+  C:/Espressif/frameworks/esp-idf-v5.0.1-2/tools/cmake/project.cmake:440 (idf_build_process)
+  CMakeLists.txt:8 (project)
+
+
+ninja: error: rebuilding 'build.ninja': subcommand failed

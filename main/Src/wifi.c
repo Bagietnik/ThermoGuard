@@ -4,7 +4,7 @@ static const char *TAG = "X003";
 
 #define WIFI_SSID CONFIG_WIFI_SSID
 #define WIFI_PASS CONFIG_WIFI_PASSWORD
-#define MAXIMUM_RETRY CONFIG_MAXIMUM_RETRY
+#define MAXIMUM_RETRY 5
 
 static EventGroupHandle_t s_wifi_event_group;
 
@@ -13,7 +13,7 @@ static EventGroupHandle_t s_wifi_event_group;
 
 static uint8_t s_retry_num = 0;
 
-static void event_handler(void *arg, esp_event_base_t event_base,
+void event_handler(void *arg, esp_event_base_t event_base,
                           int32_t event_id, void *event_data)
 {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START)

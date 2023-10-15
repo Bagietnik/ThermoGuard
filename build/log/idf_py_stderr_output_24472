@@ -1,0 +1,26 @@
+C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Kconfig.projbuild:37: warning: style: quotes recommended around '0x0' in 'hex 0x0'
+warning: TEMP_RESOLUTION_0_5 (defined at C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Kconfig.projbuild:36) defined with multiple prompts in single location
+warning: <choice> (defined at C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Kconfig.projbuild:33) defined with type hex
+warning: the value y is invalid for <choice> (defined at C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Kconfig.projbuild:33), which has type hex -- assignment ignored
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.0.1-2\tools\kconfig_new\confgen.py", line 607, in <module>
+    main()
+  File "C:\Espressif\frameworks\esp-idf-v5.0.1-2\tools\kconfig_new\confgen.py", line 328, in main
+    output_function(deprecated_options, config, temp_file)
+  File "C:\Espressif\frameworks\esp-idf-v5.0.1-2\tools\kconfig_new\confgen.py", line 409, in write_cmake
+    write_node(n)
+  File "C:\Espressif\frameworks\esp-idf-v5.0.1-2\tools\kconfig_new\confgen.py", line 399, in write_node
+    val = hex(int(val, 16))  # ensure 0x prefix
+              ^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 16: ''
+CMake Error at C:/Espressif/frameworks/esp-idf-v5.0.1-2/tools/cmake/kconfig.cmake:176 (message):
+  Failed to run confgen.py
+  (C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;C:/Espressif/frameworks/esp-idf-v5.0.1-2/tools/kconfig_new/confgen.py;--list-separator=semicolon;--kconfig;C:/Espressif/frameworks/esp-idf-v5.0.1-2/Kconfig;--sdkconfig-rename;C:/Espressif/frameworks/esp-idf-v5.0.1-2/sdkconfig.rename;--config;C:/Users/piotr/OneDrive/Pulpit/X003/http_server/sdkconfig;--env-file;C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/config.env).
+  Error 1
+Call Stack (most recent call first):
+  C:/Espressif/frameworks/esp-idf-v5.0.1-2/tools/cmake/build.cmake:590 (__kconfig_generate_config)
+  C:/Espressif/frameworks/esp-idf-v5.0.1-2/tools/cmake/project.cmake:440 (idf_build_process)
+  CMakeLists.txt:8 (project)
+
+
+ninja: error: rebuilding 'build.ninja': subcommand failed
