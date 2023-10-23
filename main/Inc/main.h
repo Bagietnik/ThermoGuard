@@ -4,3 +4,4 @@
 #include "http.h"
 #include "mcp9808.h"
 
+int add(int a, int b) {return a + b;}
