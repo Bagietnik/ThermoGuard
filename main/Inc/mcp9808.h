@@ -25,6 +25,9 @@ typedef struct {
     uint8_t temp_low_sign;
     float temp_crit;
     uint8_t temp_crit_sign;
+    uint8_t resolution;
+    uint8_t config_upper_byte;
+    uint8_t config_lower_byte;
 }ProcessValues_t;
 
 typedef struct {
@@ -45,32 +48,23 @@ void mcp9808_init();
 
 esp_err_t i2c_master_init(void);
 
-void mcp9808_setResolution();
-
-uint8_t mcp9808_get_resolution(void);
-
-esp_err_t mcp9808_register_write_byte(uint8_t reg_addr, uint8_t data);
-
-esp_err_t mcp9808_register_read(uint8_t reg_addr, uint8_t *data, size_t len);
-
-void get_new_temp(void *pvParameters);
-
 void mcp9808_set_config_register();
+void mcp9808_set_resolution();
+void mcp9808_set_Tl();
+void mcp9808_set_Tu();
+void mcp9808_set_Tc();
 
-void mcp9808_get_config_register();
+void mcp9808_read_config_register();
+void mcp9808_read_resolution();
+void mcp9808_read_Tl();
+void mcp9808_read_Tu();
+void mcp9808_read_Tc();
+
+void mcp9808_read_temp(void *pvParameters);
+void mcp9808_read_alarm_output_state();
+
 
 float get_temp();
 
-void get_upper_temp();
 
-void get_lower_temp();
 
-void set_upper_temp();
-
-void set_lower_temp();
-
-void get_alarm_output_state();
-
-void get_crit_temp();
-
-void set_crit_temp();
