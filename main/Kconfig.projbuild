@@ -41,4 +41,9 @@ config TEMP_RESOLUTION_0_0_625
     bool "0.0625 °C"
 endchoice
 
+config ALARM_OUTPUT_ACTIVE
+    bool "Activate alarm output func?"
+    default false
+    help
+        Alarm output avaiable
 endmenu

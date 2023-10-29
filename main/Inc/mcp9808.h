@@ -15,19 +15,19 @@ typedef struct {
     uint8_t res_register;
 }MCP9808RegisterInfo_t;
 
-
 typedef struct {
     float temp;
-    uint8_t temp_sign;
+    char temp_sign;
     float temp_upp;
-    uint8_t temp_upp_sign;
+    char temp_upp_sign;
     float temp_low;
-    uint8_t temp_low_sign;
+    char temp_low_sign;
     float temp_crit;
-    uint8_t temp_crit_sign;
-    uint8_t resolution;
+    char temp_crit_sign;
+    float resolution;
     uint8_t config_upper_byte;
     uint8_t config_lower_byte;
+    uint8_t alarm_state;
 }ProcessValues_t;
 
 typedef struct {
@@ -63,8 +63,8 @@ void mcp9808_read_Tc();
 void mcp9808_read_temp(void *pvParameters);
 void mcp9808_read_alarm_output_state();
 
+void read_process_values();
 
 float get_temp();
 
-
-
+uint8_t get_alarm_state();

@@ -7,4 +7,5 @@ void app_main(void)
     mcp9808_init();
 
     xTaskCreate(mcp9808_read_temp, "get temp", 4096, NULL, 2, NULL);
+
 }

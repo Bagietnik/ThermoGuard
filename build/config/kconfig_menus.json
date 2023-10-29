@@ -4110,6 +4110,16 @@
                 "name": null,
                 "title": "Temp measurement resolution",
                 "type": "choice"
+            },
+            {
+                "children": [],
+                "depends_on": null,
+                "help": "Alarm output avaiable",
+                "id": "ALARM_OUTPUT_ACTIVE",
+                "name": "ALARM_OUTPUT_ACTIVE",
+                "range": null,
+                "title": "Activate alarm output func?",
+                "type": "bool"
             }
         ],
         "depends_on": null,

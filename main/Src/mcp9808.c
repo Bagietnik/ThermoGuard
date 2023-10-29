@@ -26,6 +26,7 @@ ProcessValues_t process_values = {
     .resolution = 0,
     .config_upper_byte = 0,
     .config_lower_byte = 0,
+    .alarm_state = 0,
 };
 
 ConfigRegisterValues_t conf_reg_values = {
@@ -45,7 +46,7 @@ ConfigRegisterValues_t conf_reg_values = {
     This bit cannot be altered when either of the Lock bits are set (bit 6 and bit 7).
     This bit can be programmed in Shutdown mode, but the Alert output will not assert or deassert
     */
-    .alert_pol = 0,
+    .alert_pol = 1,
 
     /*
     Alert Sel.: Alert Output Select bit
@@ -63,7 +64,12 @@ ConfigRegisterValues_t conf_reg_values = {
     This bit can not be altered when either of the Lock bits are set (bit 6 and bit 7).
     This bit can be programmed in Shutdown mode, but the Alert output will not assert or deassert.
     */
-    .alert_cnt = 1,
+    #if CONFIG_ALARM_OUTPUT_ACTIVE
+        .alert_cnt = 1,
+    #else
+         .alert_cnt = 0,
+    #endif
+    
 
     /*
     Alert Stat.: Alert Output Status bit
@@ -198,8 +204,8 @@ void mcp9808_read_Tu()
     ESP_ERROR_CHECK(i2c_master_write_read_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, &mcp9808_reg_add.t_upper_register, 1, data, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
     data[0] = data[0] & 0x1F; //upper byte
     process_values.temp_upp = data[0] * 16.0 + data[1] / 16.0; 
-    process_values.temp_upp_sign = data[0] & 0x10;
-     if(process_values.temp_upp_sign == 0) {ESP_LOGI(TAG, "The upper temp = + %f °C", process_values.temp_upp); } else { ESP_LOGI(TAG, "The upper temp = - %f °C", process_values.temp_upp);}
+    if((data[0] & 0x10) == 0){process_values.temp_upp_sign = '+';}else{process_values.temp_upp_sign = '-';}   
+    //if(process_values.temp_upp_sign == 0) {ESP_LOGI(TAG, "The upper temp = + %f °C", process_values.temp_upp); } else { ESP_LOGI(TAG, "The upper temp = - %f °C", process_values.temp_upp);}
 
     vPortFree(data);
 }
@@ -214,8 +220,8 @@ void mcp9808_read_Tl()
     ESP_ERROR_CHECK(i2c_master_write_read_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, &mcp9808_reg_add.t_lower_register, 1, data, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
     data[0] = data[0] & 0x1F; //upper byte
     process_values.temp_low = data[0] * 16.0 + data[1] / 16.0; 
-    process_values.temp_low_sign = data[0] & 0x10;
-     if(process_values.temp_low_sign == 0) {ESP_LOGI(TAG, "The lower temp = + %f °C", process_values.temp_low); } else { ESP_LOGI(TAG, "The lower temp = - %f °C", process_values.temp_low); }
+    if((data[0] & 0x10) == 0){process_values.temp_low_sign = '+';}else{process_values.temp_low_sign = '-';}   
+    //if(process_values.temp_low_sign == 0) {ESP_LOGI(TAG, "The lower temp = + %f °C", process_values.temp_low); } else { ESP_LOGI(TAG, "The lower temp = - %f °C", process_values.temp_low); }
 
     vPortFree(data);
 }
@@ -230,8 +236,8 @@ void mcp9808_read_Tc()
     ESP_ERROR_CHECK(i2c_master_write_read_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, &mcp9808_reg_add.t_crit_register, 1, data, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));  
     data[0] = data[0] & 0x1F; //upper byte
     process_values.temp_crit = data[0] * 16.0 + data[1] / 16.0; 
-    process_values.temp_crit_sign = data[0] & 0x10; 
-    if(process_values.temp_crit_sign == 0) {ESP_LOGI(TAG, "The crit temp = + %f °C", process_values.temp_crit); } else { ESP_LOGI(TAG, "The crit temp = - %f °C", process_values.temp_crit); }
+    if((data[0] & 0x10) == 0){process_values.temp_crit_sign = '+';}else{process_values.temp_crit_sign = '-';}   
+    //if(process_values.temp_crit_sign == 0) {ESP_LOGI(TAG, "The crit temp = + %f °C", process_values.temp_crit); } else { ESP_LOGI(TAG, "The crit temp = - %f °C", process_values.temp_crit); }
     
     vPortFree(data);
 }
@@ -248,11 +254,17 @@ void mcp9808_read_temp(void *pvParameters)
 
         ESP_ERROR_CHECK(i2c_master_write_read_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, &mcp9808_reg_add.amb_temp_register, 1, data, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
         data[0] = data[0] & 0x1F; //upper byte
-        process_values.temp = data[0] * 16.0 + data[1] / 16.0; 
-        process_values.temp_sign = data[0] & 0x10;
-        if(process_values.temp_sign == 0) {ESP_LOGI(TAG, "Temperature = + %f °C", process_values.temp); } else { ESP_LOGI(TAG, "Temperature = - %f °C", process_values.temp); }
+        process_values.temp = data[0] * 16.0 + data[1] / 16.0;
+        if((data[0] & 0x10) == 0){process_values.temp_sign = '+';}else{process_values.temp_sign = '-';}        
+        ESP_LOGI(TAG, "Temperature = %c %f °C", process_values.temp_sign, process_values.temp);
         
         mcp9808_read_alarm_output_state();
+
+        UBaseType_t stackSize = uxTaskGetStackHighWaterMark(NULL);
+        printf("Dostępna pamięć na stosie: %u bajtów\n", stackSize * sizeof(StackType_t));
+    
+        size_t heapSize = esp_get_free_heap_size();
+        printf("Dostępna pamięć sterty: %u bajtów\n", heapSize);
 
         vPortFree(data);
         vTaskDelay(TEMP_MEAS_PERIOD * 1000 / portTICK_PERIOD_MS);
@@ -265,7 +277,11 @@ void mcp9808_read_temp(void *pvParameters)
 void mcp9808_read_resolution()
 {   
     uint8_t *data = (uint8_t*)pvPortMalloc(1*sizeof(uint8_t));
-    process_values.resolution = mcp9808_register_read(mcp9808_reg_add.res_register, data, 1);
+    mcp9808_register_read(mcp9808_reg_add.res_register, data, 1);
+    if(*data == 0) {process_values.resolution = 0.5;}
+    if(*data == 1) {process_values.resolution = 0.25;}
+    if(*data == 2) {process_values.resolution = 0.125;}
+    if(*data == 3) {process_values.resolution = 0.0625;}
     vPortFree(data);
 }
 
@@ -292,7 +308,7 @@ void mcp9808_set_config_register()
     
     uint8_t write_buf[3] = {mcp9808_reg_add.config_register, upper_byte, lower_byte};
     i2c_master_write_to_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, write_buf, sizeof(write_buf), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
-    ESP_LOGI(TAG, "Config register has been saved");
+    //ESP_LOGI(TAG, "Config register has been saved");
 }
 
 /**
@@ -300,11 +316,11 @@ void mcp9808_set_config_register()
 **/
 void mcp9808_set_Tu()
 {   
-    uint8_t data[3] = {mcp9808_reg_add.t_upper_register, 0x2};
+    uint8_t data[3] = {mcp9808_reg_add.t_upper_register, 0x1, 0x68};
 
     i2c_master_write_to_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, data, sizeof(data), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
     
-    ESP_LOGI(TAG, "New temp upp value has been saved");
+    //ESP_LOGI(TAG, "New temp upp value has been saved");
 
 }
 
@@ -313,10 +329,10 @@ void mcp9808_set_Tu()
 **/
 void mcp9808_set_Tl()
 {
-    uint8_t data[3] = {mcp9808_reg_add.t_lower_register, 0x1};
+    uint8_t data[3] = {mcp9808_reg_add.t_lower_register, 0x1, 0x40};
 
     i2c_master_write_to_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, data, sizeof(data), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);    
-    ESP_LOGI(TAG, "New low value has been saved");
+    //ESP_LOGI(TAG, "New temp low value has been saved");
 }
 
 /**
@@ -324,10 +340,10 @@ void mcp9808_set_Tl()
 **/
 void mcp9808_set_Tc()
 {
-    uint8_t data[3] = {mcp9808_reg_add.t_crit_register, 0x3};
+    uint8_t data[3] = {mcp9808_reg_add.t_crit_register, 0x1, 0x78};
 
     i2c_master_write_to_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, data, sizeof(data), I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);    
-    ESP_LOGI(TAG, "New temp crit value has been saved");
+    //ESP_LOGI(TAG, "New temp crit value has been saved");
 }
 
 
@@ -350,14 +366,14 @@ void mcp9808_set_resolution()
         MCP9808_TEMP_RES = MCP9808_RES_0_0_625;
     #endif
     
-    uint8_t *write_buff = (uint8_t*)pvPortMalloc(2*sizeof(uint8_t));
-    write_buff[0] = mcp9808_reg_add.res_register;
-    write_buff[1] = MCP9808_TEMP_RES;
+    uint8_t *data = (uint8_t*)pvPortMalloc(2*sizeof(uint8_t));
+    data[0] = mcp9808_reg_add.res_register;
+    data[1] = MCP9808_TEMP_RES;
 
-    i2c_master_write_to_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, write_buff, sizeof(write_buff), (I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
-    ESP_LOGI(TAG, "New resolution has been saved");
+    i2c_master_write_to_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, data, sizeof(data), (I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS));
+    //ESP_LOGI(TAG, "New resolution has been saved");
 
-    vPortFree(write_buff);
+    vPortFree(data);
 }
 
 /**
@@ -366,6 +382,11 @@ void mcp9808_set_resolution()
 float get_temp()
 {
     return process_values.temp;
+}
+
+uint8_t get_alarm_state()
+{
+    return process_values.alarm_state;
 }
 
 /**
@@ -405,12 +426,13 @@ void mcp9808_init()
     mcp9808_set_Tc();
     mcp9808_set_resolution();
 
-
     mcp9808_read_config_register(&process_values);
     mcp9808_read_Tu();
     mcp9808_read_Tl();
     mcp9808_read_Tc();
     mcp9808_read_resolution();
+
+    read_process_values();
 }
 
 void mcp9808_read_alarm_output_state()
@@ -418,8 +440,24 @@ void mcp9808_read_alarm_output_state()
         uint8_t *data = (uint8_t*)pvPortMalloc(2*sizeof(uint8_t));
         i2c_master_write_read_device(I2C_MASTER_NUM, mcp9808_reg_add.sensor_address, &mcp9808_reg_add.amb_temp_register, 1, data, 2, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS);
         data[0] = data[0] & 0xE0; //upper byte
-        
+        process_values.alarm_state = data[0];
         printf("Alarm temp reg value: %d\n", data[0]);
+        if(data[0] == 0){printf("Ta >= Tlower\n");}
+        if(data[0] == 32){printf("Ta < Tlower - Thyst\n");}
+        if(data[0] == 64){printf("Ta > Tupper\n");}
+        if(data[0] == 192){printf("Ta > Tcrit\n");}
 
         vPortFree(data);
+}
+
+void read_process_values()
+{
+    printf("\n################################################");
+    printf("\nAlarm Temp Low: %c%f", process_values.temp_low_sign, process_values.temp_low);
+    printf("\nAlarm Temp Upper: %c%f", process_values.temp_upp_sign, process_values.temp_upp);
+    printf("\nAlarm Temp Citical: %c%f", process_values.temp_crit_sign, process_values.temp_crit);
+    printf("\nResolution: %f", process_values.resolution);
+    printf("\nConfig upper byte: %d", process_values.config_upper_byte);
+    printf("\nConfig lower byte: %d", process_values.config_lower_byte);
+    printf("\n################################################\n");
 }
