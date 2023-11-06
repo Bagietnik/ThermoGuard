@@ -1,0 +1,70 @@
+[1/5] cmd.exe /C "cd /D C:\Users\piotr\OneDrive\Pulpit\X003\http_server\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/partition_table/partition-table.bin C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/http_server.bin"
+http_server.bin binary size 0xc08d0 bytes. Smallest app partition is 0x100000 bytes. 0x3f730 bytes (25%) free.
+[2/5] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\piotr\OneDrive\Pulpit\X003\http_server\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/3] cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.0.1-2\components\esptool_py && C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.0.1-2 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build -P C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/esptool_py/run_serial_tool.cmake"
+esptool esp32 -p COM12 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 http_server.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.5.1
+Serial port COM12
+Connecting.....
+Chip is ESP32-D0WD-V3 (revision v3.0)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+WARNING: Detected crystal freq 41.01MHz is quite different to normalized freq 40MHz. Unsupported crystal in use?
+Crystal is 40MHz
+MAC: 70:b8:f6:5c:c2:e0
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000d0fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26384 bytes to 16452...
+Writing at 0x00001000... (50 %)
+Writing at 0x000076ae... (100 %)
+Wrote 26384 bytes (16452 compressed) at 0x00001000 in 0.9 seconds (effective 238.3 kbit/s)...
+Hash of data verified.
+Compressed 788688 bytes to 502988...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001c324... (6 %)
+Writing at 0x00026748... (9 %)
+Writing at 0x0002b711... (12 %)
+Writing at 0x00034c93... (16 %)
+Writing at 0x0003ae3c... (19 %)
+Writing at 0x00040788... (22 %)
+Writing at 0x00046254... (25 %)
+Writing at 0x0004c142... (29 %)
+Writing at 0x00051ba4... (32 %)
+Writing at 0x00057762... (35 %)
+Writing at 0x0005d285... (38 %)
+Writing at 0x00062450... (41 %)
+Writing at 0x00067843... (45 %)
+Writing at 0x0006ca40... (48 %)
+Writing at 0x00072254... (51 %)
+Writing at 0x0007791b... (54 %)
+Writing at 0x0007d517... (58 %)
+Writing at 0x00082f0a... (61 %)
+Writing at 0x00088460... (64 %)
+Writing at 0x0008dd09... (67 %)
+Writing at 0x00093715... (70 %)
+Writing at 0x00098d52... (74 %)
+Writing at 0x0009e8a3... (77 %)
+Writing at 0x000a4c4d... (80 %)
+Writing at 0x000aaf10... (83 %)
+Writing at 0x000b07c4... (87 %)
+Writing at 0x000b9315... (90 %)
+Writing at 0x000c1670... (93 %)
+Writing at 0x000c73b0... (96 %)
+Writing at 0x000ccaa6... (100 %)
+Wrote 788688 bytes (502988 compressed) at 0x00010000 in 11.6 seconds (effective 544.2 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 310.3 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...

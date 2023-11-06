@@ -1,14 +1,32 @@
-[1/9] Performing build step for 'bootloader'
+[1/5] cmd.exe /C "cd /D C:\Users\piotr\OneDrive\Pulpit\X003\http_server\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/partition_table/partition-table.bin C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/http_server.bin"
+http_server.bin binary size 0x32080 bytes. Smallest app partition is 0x100000 bytes. 0xcdf80 bytes (80%) free.
+[2/5] Performing build step for 'bootloader'
 [1/1] cmd.exe /C "cd /D C:\Users\piotr\OneDrive\Pulpit\X003\http_server\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/bootloader/bootloader.bin"
 Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
-[2/7] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/Src/mcp9808.c.obj
-[3/7] Linking C static library esp-idf\main\libmain.a
-[4/7] Generating ld/sections.ld
-[5/7] Linking CXX executable http_server.elf
-FAILED: http_server.elf 
-cmd.exe /C "cd . && C:\Espressif\tools\xtensa-esp32-elf\esp-2022r1-11.2.0\xtensa-esp32-elf\bin\xtensa-esp32-elf-g++.exe -mlongcalls -Wno-frame-address  @CMakeFiles\http_server.elf.rsp -o http_server.elf  && cd ."
-c:/espressif/tools/xtensa-esp32-elf/esp-2022r1-11.2.0/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/11.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: esp-idf/main/libmain.a(main.c.obj):(.literal.app_main+0x8): undefined reference to `mcp9808_set_Tu'
-c:/espressif/tools/xtensa-esp32-elf/esp-2022r1-11.2.0/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/11.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: esp-idf/main/libmain.a(main.c.obj): in function `app_main':
-C:/Users/piotr/OneDrive/Pulpit/X003/http_server/main/Src/main.c:10: undefined reference to `mcp9808_set_Tu'
-collect2.exe: error: ld returned 1 exit status
+[2/3] cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.0.1-2\components\esptool_py && C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.0.1-2 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build -P C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/esptool_py/run_serial_tool.cmake"
+esptool esp32 -p COM12 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 http_server.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.5.1
+Serial port COM12
+Connecting....
+Chip is ESP32-D0WD-V3 (revision v3.0)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 70:b8:f6:5c:c2:e0
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x00042fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26384 bytes to 16452...
+Writing at 0x00001000... (50 %)
+
+A serial exception error occurred: Cannot configure port, something went wrong. Original message: OSError(22, 'Operacja We/Wy zosta│a przerwana z powodu zako˝czenia w╣tku lub ┐╣dania aplikacji.', None, 995)
+Note: This error originates from pySerial. It is likely not a problem with esptool, but with the hardware connection or drivers.
+For troubleshooting steps visit: https://docs.espressif.com/projects/esptool/en/latest/troubleshooting.html
+FAILED: CMakeFiles/flash C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/CMakeFiles/flash 
+cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.0.1-2\components\esptool_py && C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.0.1-2 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build -P C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/esptool_py/run_serial_tool.cmake"
 ninja: build stopped: subcommand failed.

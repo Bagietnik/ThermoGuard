@@ -68,3 +68,5 @@ void read_process_values();
 float get_temp();
 
 uint8_t get_alarm_state();
+
+ProcessValues_t *get_process_values();

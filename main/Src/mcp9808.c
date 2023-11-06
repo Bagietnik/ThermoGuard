@@ -29,6 +29,10 @@ ProcessValues_t process_values = {
     .alarm_state = 0,
 };
 
+ProcessValues_t *get_process_values() {
+    return &process_values;
+}
+
 ConfigRegisterValues_t conf_reg_values = {
     /*
     Alert Mod.: Alert Output Mode bit

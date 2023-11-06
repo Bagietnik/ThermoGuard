@@ -1,0 +1,70 @@
+[1/5] cmd.exe /C "cd /D C:\Users\piotr\OneDrive\Pulpit\X003\http_server\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/partition_table/partition-table.bin C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/http_server.bin"
+http_server.bin binary size 0xc7c40 bytes. Smallest app partition is 0x100000 bytes. 0x383c0 bytes (22%) free.
+[2/5] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\piotr\OneDrive\Pulpit\X003\http_server\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/3] cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.0.1-2\components\esptool_py && C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.0.1-2 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/piotr/OneDrive/Pulpit/X003/http_server/build -P C:/Espressif/frameworks/esp-idf-v5.0.1-2/components/esptool_py/run_serial_tool.cmake"
+esptool esp32 -p COM12 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 http_server.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.5.1
+Serial port COM12
+Connecting.....
+Chip is ESP32-D0WD-V3 (revision v3.0)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 70:b8:f6:5c:c2:e0
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000d7fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26384 bytes to 16452...
+Writing at 0x00001000... (50 %)
+Writing at 0x000076ae... (100 %)
+Wrote 26384 bytes (16452 compressed) at 0x00001000 in 0.9 seconds (effective 235.0 kbit/s)...
+Hash of data verified.
+Compressed 818240 bytes to 521689...
+Writing at 0x00010000... (3 %)
+Writing at 0x0001c364... (6 %)
+Writing at 0x000267e9... (9 %)
+Writing at 0x0002b7aa... (12 %)
+Writing at 0x00034088... (15 %)
+Writing at 0x0003b111... (18 %)
+Writing at 0x00040b78... (21 %)
+Writing at 0x00046615... (25 %)
+Writing at 0x0004c452... (28 %)
+Writing at 0x00051f07... (31 %)
+Writing at 0x00057ac5... (34 %)
+Writing at 0x0005d7be... (37 %)
+Writing at 0x00062965... (40 %)
+Writing at 0x00067e09... (43 %)
+Writing at 0x0006cfa0... (46 %)
+Writing at 0x00072722... (50 %)
+Writing at 0x00077e66... (53 %)
+Writing at 0x0007d818... (56 %)
+Writing at 0x00083478... (59 %)
+Writing at 0x000889e2... (62 %)
+Writing at 0x0008e2a2... (65 %)
+Writing at 0x00093bc9... (68 %)
+Writing at 0x0009921c... (71 %)
+Writing at 0x0009eb8f... (75 %)
+Writing at 0x000a4f39... (78 %)
+Writing at 0x000ab296... (81 %)
+Writing at 0x000b0cd6... (84 %)
+Writing at 0x000b724d... (87 %)
+Writing at 0x000bf64e... (90 %)
+Writing at 0x000c7d23... (93 %)
+Writing at 0x000cda13... (96 %)
+Writing at 0x000d324e... (100 %)
+Wrote 818240 bytes (521689 compressed) at 0x00010000 in 12.1 seconds (effective 542.6 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 373.2 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
