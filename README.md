@@ -18,6 +18,10 @@ http_server build with the esp32 board
   - Radiator Thermostat (zigbe2mqtt)
 
 - Software
+  - C/C++
+  - ESP_IDF (VSC)
+  - Node-Red
+  - InfluxDB + Grafana
   
 Sending an HTTP request to http://localhost will display a simple webpage where the current temperature value is presented
 
