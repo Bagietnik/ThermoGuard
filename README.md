@@ -9,7 +9,7 @@ http_server build with the esp32 board
 4. idf.py build
 5. idf.py -p COM[number of your port] flash monitor
 
-**The summary***
+**The summary**
 
 - Hardware
   - mcp9808 temperature sensor (i2c)
@@ -32,4 +32,10 @@ The system sets target temperature on the thermostat by manipulating the data re
 The selected setpoint depends on various factors, including the time of day and the user's presence
 
 ![Zrzut ekranu 2023-11-06 193833](https://github.com/Bagietnik/http_server/assets/84154206/b113a421-cf24-49aa-a95b-8a3b117fad50)
+
+
+The temperature values are loged in the data base (InfluxDB). Grafana enables convenient visualization.
+
+![image](https://github.com/Bagietnik/http_server/assets/84154206/a42dd988-a8da-415b-932d-d18140273513)
+
 
