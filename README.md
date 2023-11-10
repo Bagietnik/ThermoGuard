@@ -31,7 +31,7 @@ An HTTP request to http://localhost/json will receive a JSON-formatted message w
 The system sets target temperature on the thermostat by manipulating the data received from the components.
 The selected setpoint depends on various factors, including the time of day and the user's presence
 
-![Zrzut ekranu 2023-11-06 193833](https://github.com/Bagietnik/http_server/assets/84154206/b113a421-cf24-49aa-a95b-8a3b117fad50)
+![image](https://github.com/Bagietnik/http_server/assets/84154206/d95a3766-4091-44d4-b1c0-addedcf4f9b3)
 
 
 The temperature values are loged in the data base (InfluxDB). Grafana enables convenient visualization.
