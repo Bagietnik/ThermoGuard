@@ -42,4 +42,9 @@ The temperature values are loged in the data base (InfluxDB). Grafana enables co
 
 ![image](https://github.com/Bagietnik/http_server/assets/84154206/a42dd988-a8da-415b-932d-d18140273513)
 
+Results of one week auto controling system working:
+(Visible fluctuations due to window opening)
+
+![image](https://github.com/Bagietnik/http_server/assets/84154206/93eabe19-d520-4354-a51a-6853d922f241)
+
 
