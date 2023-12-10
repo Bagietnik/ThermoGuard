@@ -1,5 +1,4 @@
-# http_server
-http_server build with the esp32 board
+#System for managing room temperature.
 
 **How to run this code?**
 
