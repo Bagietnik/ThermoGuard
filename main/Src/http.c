@@ -20,6 +20,14 @@ const char web_page[] =
 "      padding: 50px;"
 "    }"
 ""
+"   .header-bar {"
+      "background-color: rgba(80, 65, 65, 0.7); /* Czarny z przezroczystością */"
+      "color: white;"
+      "padding: 10px;"
+      "font-size: 1.5rem;"
+      "margin-bottom: 20px; /* Dodaj margines na dole header bara */"
+      "border-radius: 8px;"
+    "}"
 "    .card-container {"
 "    display: grid;"
 "    grid-template-columns: repeat(1, 1fr); /* Trzy kafelki w jednym rzędzie */"
@@ -33,12 +41,12 @@ const char web_page[] =
 "      border-radius: 8px;"
 "    }"
 ""
-"    .temperature-value, .humidity-value {"
+"    .temperature-value {"
 "      font-size: 3rem;"
 "      font-weight: bold;"
 "      color: #ff9900;"
 "    }"
-"    .temperature-label, .humidity-label {"
+"    .temperature-label {"
 "      font-size: 1.5rem;"
 "      color: #555;"
 "    }"
@@ -53,13 +61,20 @@ const char web_page[] =
 "<body>"
 "  <h1>ESP32 WebServer</h1>"
 "  <div class=\"content\">"
+"   <div class='header-bar'>Status</div>"
 "    <div class=\"card-container\">"
 "      <div class=\"card\">"
 "          <div class=\"temperature-value\">%.2f&degC</div>"
-"          <div class=\"temperature-label\">Aktualna temperatura</div>"
+"          <div class=\"temperature-label\">Temperature</div>"
 "      </div>"
 "    </div>"
 "  </div>"
+"   <script>"
+"        function refreshPage() {"
+"            location.reload();"
+"        }"    
+"    setTimeout(refreshPage, 60000);"
+"  </script>"
 "</body>"
 "</html>";
 
@@ -69,6 +84,34 @@ esp_err_t send_web_page(httpd_req_t *req)
     //snprintf(html_response, sizeof(html_response), web_page_template, get_temp(), get_temp());
     snprintf(html_response, sizeof(html_response), web_page, get_temp());
     httpd_resp_send(req, html_response, HTTPD_RESP_USE_STRLEN);
+    return ESP_OK;
+}
+
+esp_err_t send_json_response(httpd_req_t *req) {
+
+    ProcessValues_t *values = get_process_values();
+
+    cJSON *root = cJSON_CreateObject();
+    cJSON_AddNumberToObject(root, "temp", values->temp);
+    cJSON_AddNumberToObject(root, "temp_sign", values->temp_sign);
+    cJSON_AddNumberToObject(root, "temp_upp", values->temp_upp);
+    cJSON_AddNumberToObject(root, "temp_upp_sign", values->temp_upp_sign);
+    cJSON_AddNumberToObject(root, "temp_low", values->temp_low);
+    cJSON_AddNumberToObject(root, "temp_low_sign", values->temp_low_sign);
+    cJSON_AddNumberToObject(root, "temp_crit", values->temp_crit);
+    cJSON_AddNumberToObject(root, "temp_crit_sign", values->temp_crit_sign);
+    cJSON_AddNumberToObject(root, "resolution", values->resolution);
+    cJSON_AddNumberToObject(root, "config_upper_byte", values->config_upper_byte);
+    cJSON_AddNumberToObject(root, "config_lower_byte", values->config_lower_byte);
+    cJSON_AddNumberToObject(root, "alarm_state", values->alarm_state);
+
+    char *json_str = cJSON_PrintUnformatted(root);
+    cJSON_Delete(root);
+
+    httpd_resp_set_type(req, "application/json");
+    httpd_resp_sendstr(req, json_str);
+    free(json_str);
+
     return ESP_OK;
 }
 
@@ -84,6 +127,13 @@ httpd_uri_t uri_get = {
     .user_ctx = NULL
 };
 
+httpd_uri_t uri_get_json = {
+    .uri = "/json",
+    .method = HTTP_GET,
+    .handler = send_json_response,
+    .user_ctx = NULL
+};
+
 
 httpd_handle_t setup_server(void)
 {
@@ -93,6 +143,7 @@ httpd_handle_t setup_server(void)
     if (httpd_start(&server, &config) == ESP_OK)
     {
         httpd_register_uri_handler(server, &uri_get);
+        httpd_register_uri_handler(server, &uri_get_json);
     }
 
     return server;

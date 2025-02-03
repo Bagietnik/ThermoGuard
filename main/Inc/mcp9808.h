@@ -13,26 +13,60 @@ typedef struct {
     uint8_t man_id_register;
     uint8_t dev_id_register;
     uint8_t res_register;
-}MCP9808RegisterInfo;
-
+}MCP9808RegisterInfo_t;
 
 typedef struct {
-    float temperature;
-    uint8_t sign;
-}ProcessValues;
+    float temp;
+    char temp_sign;
+    float temp_upp;
+    char temp_upp_sign;
+    float temp_low;
+    char temp_low_sign;
+    float temp_crit;
+    char temp_crit_sign;
+    float resolution;
+    uint8_t config_upper_byte;
+    uint8_t config_lower_byte;
+    uint8_t alarm_state;
+}ProcessValues_t;
+
+typedef struct {
+    bool alert_mode;
+    bool alert_pol;
+    bool alert_sel;
+    bool alert_cnt;
+    bool alert_stat;
+    bool int_clear;
+    bool win_lock;
+    bool crit_lock;
+    bool shdn;
+    bool t_hyst_1;
+    bool t_hyst_2;
+}ConfigRegisterValues_t;
 
 void mcp9808_init();
 
 esp_err_t i2c_master_init(void);
 
-void mcp9808_setResolution();
+void mcp9808_set_config_register();
+void mcp9808_set_resolution();
+void mcp9808_set_Tl();
+void mcp9808_set_Tu();
+void mcp9808_set_Tc();
 
-uint8_t mcp9808_get_resolution(void);
+void mcp9808_read_config_register();
+void mcp9808_read_resolution();
+void mcp9808_read_Tl();
+void mcp9808_read_Tu();
+void mcp9808_read_Tc();
 
-esp_err_t mcp9808_register_write_byte(uint8_t reg_addr, uint8_t data);
+void mcp9808_read_temp(void *pvParameters);
+void mcp9808_read_alarm_output_state();
 
-esp_err_t mcp9808_register_read(uint8_t reg_addr, uint8_t *data, size_t len);
-
-void get_new_temp(void *pvParameters);
+void read_process_values();
 
 float get_temp();
+
+uint8_t get_alarm_state();
+
+ProcessValues_t *get_process_values();

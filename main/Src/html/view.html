@@ -14,13 +14,28 @@
       padding: 2vh;
     }
     .content {
-      padding: 50px;
+      padding: 20px;
     }
 
-    .card-container {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr); /* Trzy kafelki w jednym rzędzie */
-    grid-gap: 20px; /* Odstęp między kafelkami */
+    .header-bar {
+      background-color: rgba(80, 65, 65, 0.7); /* Czarny z przezroczystością */
+      color: white;
+      padding: 10px;
+      font-size: 1.5rem;
+      margin-bottom: 20px; /* Dodaj margines na dole header bara */
+      border-radius: 8px;
+    }
+
+    .card-container-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Trzy kafelki w jednym rzędzie */
+      grid-gap: 20px; /* Odstęp między kafelkami */
+    }
+
+    .card-container-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); /* Trzy kafelki w jednym rzędzie */
+      grid-gap: 20px; /* Odstęp między kafelkami */
     }
 
     .card {
@@ -50,142 +65,41 @@
 <body>
   <h1>ESP32 WebServer</h1>
   <div class="content">
-    <div class="card-container">
+    <!-- Pierwszy zestaw danych -->
+    <div class="header-bar">Status</div>
+    <div class="card-container-2">
       <div class="card">
-          <div class="temperature-value">20°C</div>
-          <div class="temperature-label">Aktualna temperatura</div>
+        <div class="temperature-value">%.2f&degC</div>
+        <div class="temperature-label">Temperatura</div>
+      </div>
+      <div class="card">
+        <div class="temperature-value">OFF</div>
+        <div class="temperature-label">Alarm</div>
+      </div>
+    </div>
+
+    <!-- Dodaj margines na dole pierwszego zestawu danych i na górze drugiego zestawu danych -->
+    <div class="header-bar" style="margin-top: 80px;">Progowe wartości alarmu</div>
+    <div class="card-container-3">
+      <div class="card">
+        <div class="temperature-value">%.2f&degC</div>
+        <div class="temperature-label">T lower</div>
+      </div>
+      <div class="card">
+        <div class="temperature-value">%.2f&degC</div>
+        <div class="temperature-label">T upper</div>
+      </div>
+      <div class="card">
+        <div class="temperature-value">%.2f&degC</div>
+        <div class="temperature-label">T critical</div>
       </div>
     </div>
   </div>
+  <script>
+    function refreshPage() {
+      location.reload();
+    }
+    setTimeout(refreshPage, 60000);
+  </script>
 </body>
 </html>
-
-<!--
-  <!DOCTYPE html>
-<html>
-<head>
-  <style type="text/css">
-    html {
-      font-family: Arial;
-      display: inline-block;
-      margin: 0px auto;
-      text-align: center;
-    }
-    h1 {
-      color: #070812;
-      padding: 2vh;
-    }
-    .button {
-      display: inline-block;
-      background-color: #b30000; /* czerwony kolor */
-      border: none;
-      border-radius: 4px;
-      color: white;
-      padding: 16px 40px;
-      text-decoration: none;
-      font-size: 30px;
-      margin: 2px;
-      cursor: pointer;
-    }
-    .button2 {
-      background-color: #364cf4; /* niebieski kolor */
-    }
-    .content {
-      padding: 50px;
-    }
-    .card-grid {
-      max-width: 800px;
-      margin: 0 auto;
-      display: grid;
-      grid-gap: 2rem;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-    .card {
-      background-color: white;
-      box-shadow: 2px 2px 12px 1px rgba(140, 140, 140, .5);
-    }
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: #034078;
-    }
-  </style>
-  <title>ESP32 WEB SERVER</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css">
-</head>
-<body>
-  <h2>ESP32 WEB SERVER</h2>
-  <div class="content">
-    <div class="card-grid">
-      <div class="card">
-        <p><i class="fas fa-lightbulb fa-2x" style="color:#c81919;"></i><strong>GPIO2</strong></p>
-        <p>GPIO state: <strong>ON</strong></p>
-        <p>
-          <a href="/led2on"><button class="button">ON</button></a>
-          <a href="/led2off"><button class="button button2">OFF</button></a>
-        </p>
-      </div>
-    </div>
-  </div>
-</body>
-</html>
--->
-
-
-<!--
-  <!DOCTYPE html>
-<html>
-<head>
-  <style type="text/css">
-    html {
-      font-family: Arial, sans-serif;
-      display: inline-block;
-      margin: 0px auto;
-      text-align: center;
-      background-color: #d7d0d0;
-    }
-    h1 {
-      color: #070812;
-      padding: 2vh;
-    }
-    .content {
-      padding: 50px;
-    }
-    .card {
-      background-color: white;
-      box-shadow: 2px 2px 12px 1px rgba(140, 140, 140, .5);
-      padding: 20px;
-      border-radius: 8px;
-    }
-    .temperature-value {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #ff9900;
-    }
-    .temperature-label {
-      font-size: 1.5rem;
-      color: #555;
-    }
-  </style>
-  <title>X003</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
-    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css">
-</head>
-<body>
-  <h1>ESP32 WebServer</h1>
-  <div class="content">
-    <div class="card">
-      <div class="temperature-value">20°C</div>
-      <div class="temperature-label">Aktualna temperatura</div>
-    </div>
-  </div>
-</body>
-</html>
--->
